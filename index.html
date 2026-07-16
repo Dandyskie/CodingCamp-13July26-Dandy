@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Greeting Widget -->
+    <header class="greeting-widget">
+      <div class="time-display" id="timeDisplay"></div>
+      <div class="date-display" id="dateDisplay"></div>
+      <div class="greeting-message" id="greetingMessage">
+        <span id="greetingText"></span>
+        <span class="waving-hand" id="wavingHand">👋</span>
+        <div>
+          <input type="text" id="usernameInput" class="username-input" placeholder="Edit your name..." />
+        </div>
+      </div>
+    </header>
+    
+    <!-- Focus Timer & Quote Row -->
+    <div class="top-widgets">
+      <!-- Focus Timer -->
+      <section class="focus-timer" id="focusTimer">
+        <h2>Focus Timer</h2>
+        <div class="timer-display" id="timerDisplay">25:00</div>
+        <div class="timer-controls">
+          <button id="timerStartBtn" class="btn btn-primary">Start</button>
+          <button id="timerStopBtn" class="btn btn-secondary">Stop</button>
+          <button id="timerResetBtn" class="btn btn-secondary">Reset</button>
+        </div>
+        <div class="timer-settings">
+          <label for="timerDurationInput">Duration (minutes):</label>
+          <input type="number" id="timerDurationInput" class="timer-duration-input" min="1" max="60" value="25" />
+        </div>
+      </section>
+      
+      <!-- Music Player -->
+      <section class="music-player" id="musicPlayer">
+        <h2>Music Player</h2>
+        <div class="music-info">
+          <div class="music-title" id="musicTitle">No Song Playing</div>
+          <div class="music-artist" id="musicArtist">-</div>
+        </div>
+        <audio id="bgAudioPlayer" preload="auto"></audio>
+        <input type="range" id="musicTimeSeeker" class="music-time-seeker" value="0" min="0" max="100">
+        <div class="music-duration-display">
+          <span id="musicCurrentTime">0:00</span>
+          <span id="musicTotalDuration">0:00</span>
+        </div>
+        <div class="music-controls">
+          <button id="musicPrevBtn" class="btn btn-secondary" title="Previous">⏮️</button>
+          <button id="musicPlayBtn" class="btn btn-primary" title="Play/Pause">▶️</button>
+          <button id="musicNextBtn" class="btn btn-secondary" title="Next">⏭️</button>
+        </div>
+        <div class="music-volume-container">
+          <span>🔊</span>
+          <input type="range" id="musicVolumeSlider" class="music-volume-slider" min="0" max="1" step="0.1" value="0.5">
+        </div>
+        <!-- Add Song Form -->
+        <form class="music-add-form" id="musicAddForm">
+          <input type="text" id="musicAddTitle" placeholder="Song title..." required>
+          <input type="text" id="musicAddArtist" placeholder="Artist name..." required>
+          <input type="url" id="musicAddUrl" placeholder="Audio URL (.mp3)..." required>
+          <button type="submit" class="btn btn-primary">Add Song</button>
+        </form>
+        <!-- Playlist -->
+        <ul class="music-playlist" id="musicPlaylist">
+          <!-- Playlist items rendered dynamically -->
+        </ul>
+      </section>
+      
+      <!-- Quote Display -->
+      <section class="quote-display" id="quoteDisplay">
+        <h2>Daily Inspiration</h2>
+        <blockquote id="quoteText"></blockquote>
+        <p class="quote-author" id="quoteAuthor"></p>
+        <button id="newQuoteBtn" class="btn btn-secondary">New Quote</button>
+      </section>
+    </div>
+    
+    <!-- Task Manager -->
+    <section class="task-manager" id="taskManager">
+      <h2>My Tasks <span class="auto-save-indicator" id="taskSaveIndicator">✓ Saved</span></h2>
+      
+      <!-- Task Input Form -->
+      <form class="task-input-form" id="taskInputForm">
+        <input type="text" id="taskInput" class="task-input" placeholder="Add a new task..." maxlength="500" required />
+        <button type="submit" class="btn btn-primary">Add Task</button>
+      </form>
+      
+      <!-- Task Progress -->
+      <div class="task-progress" id="taskProgress">
+        <div class="task-stats">
+          <span id="taskStats">0 of 0 completed</span>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+      </div>
+      
+      <!-- Sort Controls -->
+      <div class="task-sort-controls">
+        <label for="taskSortSelect">Sort by:</label>
+        <select id="taskSortSelect" class="task-sort-select">
+          <option value="creation">Creation Order</option>
+          <option value="alphabetical">Alphabetical</option>
+          <option value="completion">Completion Status</option>
+        </select>
+      </div>
+      
+      <!-- Task List -->
+      <ul class="task-list" id="taskList">
+        <!-- Tasks will be rendered here -->
+      </ul>
+      
+      <!-- Empty State -->
+      <div class="empty-state" id="taskEmptyState">
+        <p>No tasks yet. Add one to get started!</p>
+      </div>
+    </section>
+    
+    <!-- Quick Links -->
+    <section class="quick-links" id="quickLinks">
+      <h2>Quick Links <span class="auto-save-indicator" id="linksSaveIndicator">✓ Saved</span></h2>
+      
+      <!-- Quick Link Input Form -->
+      <form class="quicklink-input-form" id="quicklinkInputForm">
+        <input type="text" id="quicklinkNameInput" class="quicklink-name-input" placeholder="Link name..." maxlength="50" required />
+        <input type="url" id="quicklinkUrlInput" class="quicklink-url-input" placeholder="URL..." required />
+        <button type="submit" class="btn btn-primary">Add Link</button>
+      </form>
+      
+      <!-- Quick Links Grid -->
+      <div class="quicklinks-grid" id="quicklinksGrid">
+        <!-- Quick links will be rendered here -->
+      </div>
+      
+      <!-- Empty State -->
+      <div class="empty-state" id="quicklinksEmptyState">
+        <p>No quick links saved. Add your favorite sites!</p>
+      </div>
+    </section>
+    
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span class="theme-icon" id="themeIcon">🌙</span>
+    </button>
+  </div>
+  
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+  
+  <!-- Modal Overlay -->
+  <div class="modal-overlay hidden" id="modalOverlay">
+    <div class="modal-content">
+      <h3 id="modalTitle">Confirm Action</h3>
+      <p id="modalMessage"></p>
+      <div id="modalInputContainer" class="hidden">
+        <input type="text" id="modalInputField" class="modal-input-field" placeholder="Enter value...">
+      </div>
+      <div class="modal-actions">
+        <button id="modalConfirmBtn" class="btn btn-primary">Confirm</button>
+        <button id="modalCancelBtn" class="btn btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="js/app.js"></script>
+</body>
+</html>
